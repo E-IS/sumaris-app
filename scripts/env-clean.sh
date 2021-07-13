@@ -11,7 +11,7 @@ if [[ ! -f "${PROJECT_DIR}/package.json" ]]; then
   exit 1
 fi;
 
-cd ${PROJECT_DIR}
+cd ${PROJECT_DIR} || exit 1
 
 #echo "Cleaning project dependencies..."
 #rm -rf node_modules

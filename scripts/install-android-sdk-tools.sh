@@ -13,7 +13,9 @@ if [[ "_" == "_${ANDROID_SDK_CLI_ROOT}" ]]; then
   exit 1
 fi
 
-if [[ ! -d "${ANDROID_SDK_CLI_ROOT}/tools/bin" ]]; then
+ANDROID_SDK_TOOLS=${ANDROID_SDK_CLI_ROOT}/cmdline-tools/bin
+
+if [[ ! -d "${ANDROID_SDK_TOOLS}" ]]; then
   echo "Installing Android SDK CLI tools... ${ANDROID_SDK_CLI_ROOT}"
   ANDROID_SDK_CLI_FILE="commandlinetools-linux-${ANDROID_SDK_CLI_VERSION}_latest.zip"
   test -e "${ANDROID_SDK_CLI_FILE}" || wget -kL https://dl.google.com/android/repository/${ANDROID_SDK_CLI_FILE}
@@ -23,13 +25,13 @@ if [[ ! -d "${ANDROID_SDK_CLI_ROOT}/tools/bin" ]]; then
   test -e "${ANDROID_SDK_CLI_ROOT}" && sudo rm "${ANDROID_SDK_CLI_FILE}"
 fi
 
-if [[ ! -d "${ANDROID_SDK_CLI_ROOT}/tools/bin" ]]; then
+if [[ ! -d "${ANDROID_SDK_TOOLS}" ]]; then
   echo "Failed to install Android SDK CLI tools. If you are not root, try with \`sudo -E ./install-android-sdk-tools.sh\`"
   exit 1
 fi
 
 # Add Sdk tools and Java to path
-export PATH=${ANDROID_SDK_CLI_ROOT}/tools/bin:${JAVA_HOME}/bin$:$PATH
+export PATH=${ANDROID_SDK_TOOLS}:${JAVA_HOME}/bin$:$PATH
 
 mkdir -p ${ANDROID_SDK_ROOT}/licenses
 echo 8933bad161af4178b1185d1a37fbf41ea5269c55 > ${ANDROID_SDK_ROOT}/licenses/android-sdk-license
